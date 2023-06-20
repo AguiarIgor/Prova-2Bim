@@ -95,7 +95,8 @@ class PedidoRepository
 
 private Pedido ReaderToPedido(SqliteDataReader reader)
     {
-        var pedido = new Pedido(reader.GetInt32(0), reader.GetDateTime(1), reader.GetInt32(2), reader.GetInt32(3));
+        var pedido = new Pedido(reader.GetInt32(0), reader.GetDateTime(1), reader.GetInt32(3), reader.GetInt32(4));
+        pedido.DataPedido = reader.GetDateTime(2);
         return pedido;
     }
 }
