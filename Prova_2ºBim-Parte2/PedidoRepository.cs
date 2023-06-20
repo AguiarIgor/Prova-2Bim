@@ -74,6 +74,50 @@ class PedidoRepository
         return result;
     }
 
+    public bool MostrarPedidosCliente(int clienteid)
+    {
+        var connection = new SqliteConnection(_databaseConfig.ConnectionString);
+        connection.Open();
+
+        var command = connection.CreateCommand();
+        command.CommandText = "SELECT count(pedidocodcliente) FROM Pedidos WHERE (pedidocodcliente = $clienteid)";
+        command.Parameters.AddWithValue("$clienteid", clienteid);
+
+        var reader = command.ExecuteReader();
+        reader.Read();
+        var result = false;
+        
+        if(reader.GetInt32(0) > 0){
+            result = true;
+        }
+        else{
+            result = false;
+        }
+        return result;
+    }
+
+    public bool MostrarPedidosVendedor(int vendedorid)
+    {
+        var connection = new SqliteConnection(_databaseConfig.ConnectionString);
+        connection.Open();
+
+        var command = connection.CreateCommand();
+        command.CommandText = "SELECT count(pedidocodvendedor) FROM Pedidos WHERE (pedidocodvendedor = $vendedorid)";
+        command.Parameters.AddWithValue("$vendedorid", vendedorid);
+
+        var reader = command.ExecuteReader();
+        reader.Read();
+        var result = false;
+        
+        if(reader.GetInt32(0) > 0){
+            result = true;
+        }
+        else{
+            result = false;
+        }
+        return result;
+    }
+
     public Pedido GetById(int pedidoid)
     {
         var connection = new SqliteConnection(_databaseConfig.ConnectionString);
@@ -93,22 +137,6 @@ class PedidoRepository
         return pedido;
     }
 
-    public bool MostrarPedidosCliente(int clienteid)
-    {
-        var connection = new SqliteConnection(_databaseConfig.ConnectionString);
-        connection.Open();
-
-        var command = connection.CreateCommand();
-        command.CommandText = "SELECT count(pedidocodcliente) FROM Pedidos WHERE (pedidocodcliente = $clienteid)";
-        command.Parameters.AddWithValue("$clienteid", clienteid);
-
-        var reader = command.ExecuteReader();
-        reader.Read();
-        var result = reader.GetBoolean(0);
-
-        return result;
-    }
-
     public List<Pedido> GetByClienteId(int clienteid)
     {
         var pedidos = new List<Pedido>();
@@ -120,6 +148,36 @@ class PedidoRepository
         var command = connection.CreateCommand();
         command.CommandText = "SELECT * FROM Pedidos WHERE(pedidocodcliente = $clienteid)";
         command.Parameters.AddWithValue("$clienteid", clienteid);
+
+        var reader = command.ExecuteReader();
+
+        while(reader.Read())
+        {
+            var pedidoid = reader.GetInt32(0);
+            var prazoentrega = reader.GetDateTime(1);
+            var datapedido = reader.GetDateTime(2);
+            var pedidoclienteid = reader.GetInt32(3);
+            var pedidovendedorid = reader.GetInt32(4);
+            var pedido = ReaderToPedido(reader);
+            pedidos.Add(pedido);
+        }
+
+        connection.Close();
+        
+        return pedidos;
+    }
+
+    public List<Pedido> GetByVendedorId(int vendedorid)
+    {
+        var pedidos = new List<Pedido>();
+        
+
+        var connection = new SqliteConnection(_databaseConfig.ConnectionString);
+        connection.Open();
+
+        var command = connection.CreateCommand();
+        command.CommandText = "SELECT * FROM Pedidos WHERE(pedidocodvendedor = $vendedorid)";
+        command.Parameters.AddWithValue("$vendedorid", vendedorid);
 
         var reader = command.ExecuteReader();
 

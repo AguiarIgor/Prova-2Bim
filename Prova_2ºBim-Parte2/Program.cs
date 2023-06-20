@@ -84,9 +84,9 @@ else if(modelName == "Pedido")
         Console.Write("Qual o prazo de entrega do pedido: ");
         DateTime prazoEntrega = Convert.ToDateTime(Console.ReadLine());
         Console.Write("Qual o código de cliente do pedido: ");
-        int pedidoVendedorId = Convert.ToInt32(Console.ReadLine());
-        Console.Write("Qual o código do vendedor do pedido: ");
         int pedidoClienteId = Convert.ToInt32(Console.ReadLine());
+        Console.Write("Qual o código do vendedor do pedido: ");
+        int pedidoVendedorId = Convert.ToInt32(Console.ReadLine());
         var pedido = new Pedido(pedidoId, prazoEntrega, pedidoVendedorId, pedidoClienteId);
         pedidoRepository.Inserir(pedido);
     }
@@ -118,16 +118,61 @@ else if(modelName == "Pedido")
         {
             var pedidos = new List<Pedido>();
             pedidos = pedidoRepository.GetByClienteId(clienteid);
+            var vendedores = vendedorRepository.Listar();
             
-            Console.WriteLine("Código Pedido   Prazo Entrega         Data Pedido           Código Cliente   Código Vendedor");
+            Console.WriteLine("Código Pedido   Prazo Entrega         Data Pedido           Código Cliente   Código Vendedor   Nome Vendedor");
             foreach (var pedido in pedidos)
             {
-                Console.WriteLine($"{pedido.PedidoId, -15} {pedido.PrazoEntrega, -21} {pedido.DataPedido, -21} {pedido.PedidoClienteId, -16} {pedido.PedidoVendedorId}");
+                foreach (var vendedor in vendedores){
+                    if(vendedor.VendedorId == pedido.PedidoVendedorId){
+                        Console.WriteLine($"{pedido.PedidoId, -15} {pedido.PrazoEntrega, -21} {pedido.DataPedido, -21} {pedido.PedidoClienteId, -16} {pedido.PedidoVendedorId, -17} {vendedor.Nome}");
+                    }
+                }
             }
         } 
         else 
         {
             Console.WriteLine($"O cliente com Id {clienteid} não existe.");
+        }
+    }
+
+    else if(modelAction == "MostrarPedidosVendedor")
+    {
+        Console.WriteLine("\nMostrar Pedidos do Vendedor");
+        Console.Write("Digite o Código do vendedor: ");
+        int vendedorid = Convert.ToInt32(Console.ReadLine());
+
+        if(pedidoRepository.MostrarPedidosVendedor(vendedorid))
+        {
+            Console.WriteLine("Código Pedido   Data Pedido");
+            foreach (var pedido in pedidoRepository.GetByVendedorId(vendedorid))
+            {
+                Console.WriteLine($"{pedido.PedidoId, -15} {pedido.DataPedido}");
+            }
+        } 
+        else 
+        {
+            Console.WriteLine($"O vendedor com Id {vendedorid} não existe.");
+        }
+    }
+
+    else if(modelAction == "MostrarQuantidadesProdutosPedido")
+    {
+        Console.WriteLine("\nMostrar Quantidade de Produtos de Pedido");
+        Console.Write("Digite o Código do produto: ");
+        int produtoid = Convert.ToInt32(Console.ReadLine());
+        if(produtoRepository.Apresentar(produtoid)){
+            var produto = produtoRepository.GetById(produtoid);
+            if(itensPedidoRepository.MostrarItensPedidoProduto(produtoid)){
+                Console.WriteLine("Código Pedido   Código Produto   Descrição       Valor Unitário   Quantidade   Valor Total");
+                foreach(var itenspedido in itensPedidoRepository.GetByProdutoId(produtoid)){
+                    Console.WriteLine($"{itenspedido.ItensPedidoCodPedido, -15} {produto.ProdutoId, -16} {produto.Descricao, -15} {produto.ValorUnitario, -16} {itenspedido.Quantidade, -12} {(produto.ValorUnitario * itenspedido.Quantidade)}");
+                }
+            }
+        }
+        else 
+        {
+            Console.WriteLine($"O produto com Id {produtoid} não existe.");
         }
     }
 }

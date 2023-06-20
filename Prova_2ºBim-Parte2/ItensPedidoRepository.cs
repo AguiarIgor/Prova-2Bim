@@ -71,6 +71,28 @@ class ItensPedidoRepository
         return result;
     }
 
+    public bool MostrarItensPedidoProduto(int produtoid)
+    {
+        var connection = new SqliteConnection(_databaseConfig.ConnectionString);
+        connection.Open();
+
+        var command = connection.CreateCommand();
+        command.CommandText = "SELECT count(itempedidocodproduto) FROM ItensPedido WHERE (itempedidocodproduto = $produtoid)";
+        command.Parameters.AddWithValue("$produtoid", produtoid);
+
+        var reader = command.ExecuteReader();
+        reader.Read();
+        var result = false;
+        
+        if(reader.GetInt32(0) > 0){
+            result = true;
+        }
+        else{
+            result = false;
+        }
+        return result;
+    }
+
     public ItensPedido GetById(int itenspedidoid)
     {
         var connection = new SqliteConnection(_databaseConfig.ConnectionString);
@@ -88,6 +110,34 @@ class ItensPedidoRepository
         connection.Close();
 
         return itenspedido;
+    }
+
+    public List<ItensPedido> GetByProdutoId(int produtoid)
+    {
+        var itenspedidos = new List<ItensPedido>();
+
+        var connection = new SqliteConnection(_databaseConfig.ConnectionString);
+        connection.Open();
+
+        var command = connection.CreateCommand();
+        command.CommandText = "SELECT * FROM ItensPedido WHERE (itempedidocodproduto = $produtoid)";
+        command.Parameters.AddWithValue("$produtoid", produtoid);
+
+        var reader = command.ExecuteReader();
+
+        while(reader.Read())
+        {
+            var itenspedidoid = reader.GetInt32(0);
+            var itenspedidocodpedido = reader.GetInt32(1);
+            var itenspedidocodproduto = reader.GetInt32(2);
+            var quantidade = reader.GetInt32(3);
+            var itenspedido = ReaderToItensPedido(reader);
+            itenspedidos.Add(itenspedido);
+        }
+
+        connection.Close();
+        
+        return itenspedidos;
     }
 private ItensPedido ReaderToItensPedido(SqliteDataReader reader)
     {

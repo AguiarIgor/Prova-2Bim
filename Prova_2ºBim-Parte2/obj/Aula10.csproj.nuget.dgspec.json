@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Igor\\Escola\\3º Ano IFSP\\LP3\\Csharp_Repository\\Prova_2ºBim\\Aula10.csproj": {}
+    "C:\\Users\\zuerinha\\Downloads\\Prova-2Bim\\Prova_2ºBim-Parte2\\Aula10.csproj": {}
   },
   "projects": {
-    "D:\\Igor\\Escola\\3º Ano IFSP\\LP3\\Csharp_Repository\\Prova_2ºBim\\Aula10.csproj": {
+    "C:\\Users\\zuerinha\\Downloads\\Prova-2Bim\\Prova_2ºBim-Parte2\\Aula10.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Igor\\Escola\\3º Ano IFSP\\LP3\\Csharp_Repository\\Prova_2ºBim\\Aula10.csproj",
+        "projectUniqueName": "C:\\Users\\zuerinha\\Downloads\\Prova-2Bim\\Prova_2ºBim-Parte2\\Aula10.csproj",
         "projectName": "Aula10",
-        "projectPath": "D:\\Igor\\Escola\\3º Ano IFSP\\LP3\\Csharp_Repository\\Prova_2ºBim\\Aula10.csproj",
+        "projectPath": "C:\\Users\\zuerinha\\Downloads\\Prova-2Bim\\Prova_2ºBim-Parte2\\Aula10.csproj",
         "packagesPath": "C:\\Users\\zuerinha\\.nuget\\packages\\",
-        "outputPath": "D:\\Igor\\Escola\\3º Ano IFSP\\LP3\\Csharp_Repository\\Prova_2ºBim\\obj\\",
+        "outputPath": "C:\\Users\\zuerinha\\Downloads\\Prova-2Bim\\Prova_2ºBim-Parte2\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Users\\zuerinha\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder"
@@ -63,7 +63,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
         }
       }
     }

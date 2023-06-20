@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LB+2d1sfnGy5Yc53Zh4YAR05t4EkeJZB53MygMHkYkZux3wwT2Bfq3XRy/lpjxxKXoiOqoQorBCkPHa0kE2J+A==",
+  "dgSpecHash": "sG7hH+d1sa2IYx6S+RyTPD2O5760yvVIk9xN4MBL0FrWyhXyT7F9LRQcu9Ez7OuTzMsRRUAHazaikAJX0LrZDQ==",
   "success": true,
-  "projectFilePath": "D:\\Igor\\Escola\\3º Ano IFSP\\LP3\\Csharp_Repository\\Prova_2ºBim\\Aula10.csproj",
+  "projectFilePath": "C:\\Users\\zuerinha\\Downloads\\Prova-2Bim\\Prova_2ºBim-Parte2\\Aula10.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\zuerinha\\.nuget\\packages\\microsoft.data.sqlite\\7.0.5\\microsoft.data.sqlite.7.0.5.nupkg.sha512",
     "C:\\Users\\zuerinha\\.nuget\\packages\\microsoft.data.sqlite.core\\7.0.5\\microsoft.data.sqlite.core.7.0.5.nupkg.sha512",
